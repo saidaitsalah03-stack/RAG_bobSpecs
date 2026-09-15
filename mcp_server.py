@@ -1,29 +1,5 @@
 #!/usr/bin/env python3
-"""
-mcp_server.py — Serveur MCP exposant les spécifications BornFlow à BOB AI.
 
-Lancement manuel (test) :
-    python mcp_server.py
-
-Le serveur reste alors silencieux en attente d'un client stdio : c'est le
-comportement normal, pas un blocage. Ctrl+C pour sortir.
-
-Écarts assumés par rapport au guide initial :
-
-1. JOURNALISATION DE CRASH dans mcp_crash.log.
-   Un serveur MCP qui échoue au démarrage produit chez le client un simple
-   « Connection closed » sans cause. Sans journal, le diagnostic est
-   impossible. On n'écrit JAMAIS sur stdout : cela corromprait le flux
-   JSON-RPC.
-
-2. MÉTADONNÉES DANS LA RÉPONSE (identifiant, version, chapitre).
-   Le guide ne retournait que page_content : l'agent ne pouvait alors ni
-   citer la règle, ni détecter une spécification périmée.
-
-3. DEUXIÈME OUTIL de lookup exact par identifiant.
-   Quand l'identifiant est connu, la recherche vectorielle est un détour
-   inutile et faillible.
-"""
 import asyncio
 import os
 import sys
