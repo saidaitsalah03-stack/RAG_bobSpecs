@@ -41,7 +41,7 @@ disque.
 
 
 
-## Étape 3 — Test manuel du serveur
+## Étape 2 — Test manuel du serveur
 
 ```powershell
 python mcp_server.py
@@ -54,7 +54,7 @@ S'il rend la main immédiatement, ouvre `mcp_crash.log` — il contient les logs
 
 ---
 
-## Étape 4 — Déclaration dans BOB AI
+## Étape 3 — Déclaration dans BOB AI
 
 Dans `.bob/mcp.json`, **ajouter sans toucher aux serveurs existants** :
 
@@ -72,7 +72,7 @@ Dans `.bob/mcp.json`, **ajouter sans toucher aux serveurs existants** :
 ```
 
 
-## Étape 5 — Prompt système
+## Étape 4 — Prompt système
 
 Dans les règles projet (`.bob/rules/`) ou le prompt système de l'agent :
 
