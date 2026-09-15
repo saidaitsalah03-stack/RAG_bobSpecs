@@ -1,32 +1,5 @@
 #!/usr/bin/env python3
-"""
-ingestion.py — Indexation des SFD BornFlow dans ChromaDB.
 
-À exécuter UNE SEULE FOIS (ou après modification des SFD).
-
-    python ingestion.py
-
-Écarts assumés par rapport au guide initial, chacun motivé :
-
-1. CHUNKING PAR RÈGLE plutôt que RecursiveCharacterTextSplitter.
-   Un découpage à 500 caractères coupe les règles au milieu : la moitié
-   d'une règle de gestion ne veut rien dire, et les métadonnées
-   (identifiant, chapitre) sont perdues. Le document expose déjà ses
-   frontières sémantiques via ses tableaux — on les utilise.
-
-2. MÉTADONNÉES CONSERVÉES (rdg_id, version, chapitre, document).
-   Sans elles, l'agent ne peut ni citer l'identifiant de la règle, ni
-   signaler qu'une spécification est périmée.
-
-3. PAS D'APPEL À vectorstore.persist().
-   Cette méthode a été supprimée dans ChromaDB 1.x ; la persistance est
-   automatique avec PersistentClient. Le code du guide lèverait
-   AttributeError.
-
-4. PRÉFIXES E5 ("query:" / "passage:").
-   Le modèle intfloat/multilingual-e5-large est entraîné avec ces
-   préfixes. Sans eux, la qualité de récupération chute nettement.
-"""
 import re
 import shutil
 from pathlib import Path
@@ -181,7 +154,6 @@ def main():
         collection_name=COLLECTION,
         ids=ids,                       # l'identifiant de règle sert de clé
     )
-    # Pas de .persist() : supprimé dans ChromaDB 1.x, persistance automatique.
 
     print(f"\nIndexation terminée — {len(all_docs)} règles dans {PERSIST_DIR}")
 
